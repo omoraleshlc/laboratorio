@@ -97,7 +97,18 @@ placeholder="Buscar Alumno" />
 
 <tr ng-repeat="arrayAlumnos in listaAlumnos">
 <td>{{$index+1}}</td>
-<td data-toggle="tooltip" data-placement="top" title="Matrícula">{{arrayAlumnos.matricula}}</td>
+<td data-toggle="tooltip" data-placement="top" title="Matrícula">
+    <label data-toggle="tooltip" data-placement="top" title="Editar alumno">
+<!-- Button trigger modal -->
+<a ng-click="buscarAlumno(arrayAlumnos.matricula);"
+style="cursor:pointer;"
+
+data-toggle="modal" data-target="#editarAlumnoM">
+{{arrayAlumnos.matricula}}
+</a>
+
+</label>
+    </td>
 <td data-toggle="tooltip" data-placement="top" title="Nombre del alumno">{{arrayAlumnos.nombreCompleto}}</td>
 <td data-toggle="tooltip" data-placement="top" title="Escuela">{{arrayAlumnos.escuela}}</td>
 <td >
@@ -108,18 +119,6 @@ placeholder="Buscar Alumno" />
 
 
 
-
-<label data-toggle="tooltip" data-placement="top" title="Editar alumno">
-<!-- Button trigger modal -->
-<a ng-click="buscarAlumno(arrayAlumnos.matricula);"
-style="cursor:pointer;"
-
-data-toggle="modal" data-target="#editarAlumnoM">
-<span class="glyphicon glyphicon-edit " aria-hidden="true"></span>
-</a>
-
-</label>
-&nbsp;&nbsp;
 
 
 <label data-toggle="tooltip"
@@ -280,10 +279,10 @@ role="dialog" aria-labelledby="historialAlumnoModal">
 
 
 
-    <section>
+    <section ng-repeat="arrH in listaHistorial">
     <div class="panel panel-info">
         <div class="panel panel-heading text-left">
-            
+            {{arrH.fecha}}
         </div>
        
         
@@ -306,14 +305,16 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 
                 
                 <tr>
-                    <td></td>
+                    <td>{{arrH.peso}}</td>
+                    <td>{{arrH.talla}}</td>
+                    <td>{{arrH.cCadera}}</td>
                 </tr>
             </table> 
             
             <hr>
             
             
-<label>Datos Bioquímicos</label>
+<label>Datos Bioquimicos</label>
             <table class="table table-striped table-hover">
                 
                 <tr>
@@ -330,7 +331,44 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 
                 
                 <tr>
-                    <td></td>
+                    <td>Colesterol</td>
+                    <td>{{arrH.colesterol}}mg/dl</td>
+                    <td><200mg/dl</td>
+                </tr>
+    <tr>
+                    <td>Trigliceridos</td>
+                    <td>{{arrH.trigliceridos}}mg/dl</td>
+                    <td><=130mg/dl</td>
+                </tr>   
+                
+                <tr>
+                    <td>Colesterol HDL</td>
+                    <td>{{arrH.hdl}}mg/dl</td>
+                    <td>>35mg/dl</td>
+                </tr>  
+                
+                <tr>
+                    <td>Colesterol LDL</td>
+                    <td>{{arrH.ldl}}mg/dl</td>
+                    <td><=130mg/dl</td>
+                </tr> 
+                
+                <tr>
+                    <td>Insulina Basal</td>
+                    <td>{{arrH.insulinaBasal}}mg/dl</td>
+                    <td>2 6 24 9  uUI/ml</td>
+                </tr> 
+                
+                <tr>
+                    <td>Glucosa Basal</td>
+                    <td>{{arrH.glucosaBasal }}mg/dl</td>
+                    <td><100mg/dl</td>
+                </tr> 
+                
+                <tr>
+                    <td>Presion Arterial</td>
+                    <td>{{arrH.presionArterial }}mg/dl</td>
+                    <td>---</td>
                 </tr>
             </table>   
 
@@ -343,7 +381,7 @@ role="dialog" aria-labelledby="historialAlumnoModal">
 <hr>
 
 
-<label>Datos Bioquímicos</label>
+<label>Datos Clinicos</label>
             <table class="table table-striped table-hover">
                 
                 <tr>
@@ -696,7 +734,7 @@ role="dialog" aria-labelledby="fichaBioModal">
 
 
 
-<div class="modal-body">
+<div class="modal-body" ng-show="fichaBio.matricula">
 
 
 
@@ -1047,10 +1085,12 @@ return true;
 ng-class="!fichaAntro.talla ?'form-group  has-error' :  'form-group ';">
 <label class="col-md-4 control-label" for="cod">Talla:</label>  
 <div class="col-md-4">
-<input id="cod" name="cod" placeholder="" 
+<input id="cod" name="cod" placeholder="000" 
 ng-model="fichaAntro.talla"
 class="form-control input-md numericos" type="text" required=""
-onkeypress="return isNumberKey(event)" 
+
+maxlength="3"
+onkeyup="this.value=this.value.replace(/[^\d]/,'')"
 >
 
 </div>
@@ -1064,10 +1104,11 @@ onkeypress="return isNumberKey(event)"
 ng-class="!fichaAntro.peso ?'form-group  has-error' :  'form-group ';">
 <label class="col-md-4 control-label" for="cod">Peso:</label>  
 <div class="col-md-4">
-<input id="cod" name="cod" placeholder="" 
+<input id="cod" name="cod" placeholder="000.00" 
 ng-model="fichaAntro.peso"
 class="form-control input-md numericos" type="text" required=""
 onkeypress="return isNumberKey(event)" 
+maxlength="6"
 >
 
 </div>
@@ -1746,7 +1787,7 @@ data: params
 //headers: {'Content-Type': 'application/json'}
 })
 .then(function(res,data) {  
-$scope.listaAlumnos = res.data; 
+$scope.listaHistorial = res.data; 
 
 $scope.mensaje = "";
 });

@@ -61,67 +61,125 @@ $scope.fichaClinica = {};
 $scope.fichaBio = {};
 
 
+$scope.llenarValores = function(data){
+    
+var hombres = [];
+var mujeres = [];
+
+
+
+for (var i in data){
+    
+    if(data[i].sexo=='F'){
+        
+        mujeres.push([parseFloat(data[i].talla), parseFloat(data[i].peso)]);
+    }
+    
+    if(data[i].sexo=='M'){
+        hombres.push([parseFloat(data[i].talla), parseFloat(data[i].peso)]);
+    }
+}    
+  
+    
+    
+/*dibujar grafica*/    
+Highcharts.chart('graficaLaboratorio', {
+    chart: {
+        type: 'scatter',
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Estatura y Peso de alumnos por genero'
+    },
+    subtitle: {
+        text: 'Todas las Escuelas'
+    },
+    xAxis: {
+        title: {
+            enabled: true,
+            text: 'Estatura (cm)'
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+    },
+    yAxis: {
+        title: {
+            text: 'Peso (kg)'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 100,
+        y: 70,
+        floating: true,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+        borderWidth: 1
+    },
+    plotOptions: {
+        scatter: {
+            marker: {
+                radius: 5,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)'
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '{point.x} cm, {point.y} kg'
+            }
+        }
+    },
+    series: [{
+        name: 'Femenino',
+        color: 'rgba(223, 83, 83, .5)',
+        data: mujeres
+
+    }, {
+        name: 'Masculino',
+        color: 'rgba(119, 152, 191, .5)',
+        data: hombres
+    }]
+});
+};
+
+
+
 
 
 
 $scope.mostrarGraficaLaboratorio = function(){
   
   
-Highcharts.chart('graficaLaboratorio', {
-    chart: {
-        type: 'bar'
-    },
-    title: {
-        text: 'Historic World Population by Region'
-    },
-    subtitle: {
-        text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
-    },
-    xAxis: {
-        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-        title: {
-            text: null
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Population (millions)',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
-    },
-    tooltip: {
-        valueSuffix: ' millions'
-    },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-        shadow: true
-    },
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: 'Año 2017',
-        data: [107, 31, 635, 203, 2]
-    }]
+  
+var arreglo = {};  
+var params = {tipoReporte:$scope.tipoReporte};
+$http({
+           url: 'json/historialGlobalPeso.php',
+           method: 'POST',
+           data: params
+       })
+.then(function(res,data) {
+   $scope.arreglo = res.data;
+ $scope.llenarValores($scope.arreglo);
+
+//$scope.mensajeFichaAntro = 'Ficha Antropométrica agregada!'; // 
 });  
+  
+  
+  
     
     
 };
@@ -147,11 +205,9 @@ $http({
            transformRequest: false,
            headers: {'Content-Type': 'application/json'}
        })
-.then(function(response) {
+.then(function(res,data) {
     console.log(response)
-  Object.getOwnPropertyNames(fichaBio).forEach(function (prop) {
-  delete fichaBio[prop];
-});
+ 
 
 //$scope.mensajeFichaAntro = 'Ficha Antropométrica agregada!'; // 
 });

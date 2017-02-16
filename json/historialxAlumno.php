@@ -20,7 +20,6 @@ $string = array();
 
 
 
-
  
 /*
     $split      = explode(" ", $q);
@@ -42,9 +41,153 @@ $string = array();
     */
    
 if($matricula){
-$sql = "select * from identificacionAlumno 
-where 
-matricula = '$matricula'";
+ $sql = "select 
+fecha,
+
+/* FICHA ANTROPROMETRICA */
+(select talla from fichaAntropometrica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFA DESC limit 1) 
+talla,
+
+(select peso from fichaAntropometrica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFA DESC limit 1) 
+peso,
+
+(select cMuneca from fichaAntropometrica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFA DESC limit 1) 
+cMuneca,
+
+(select cCadera from fichaAntropometrica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFA DESC limit 1) 
+cCadera,
+/* TERMINA FICHA ANTROPROMETRICA */
+
+
+
+/* FICHA CLINICA */
+(select toma1BrazoDerecho from fichaClinica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFC DESC limit 1) 
+toma1BrazoDerecho,
+
+(select toma1BrazoIzquierdo from fichaClinica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFC DESC limit 1) 
+toma1BrazoIzquierdo,
+
+(select toma2BrazoDerecho from fichaClinica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFC DESC limit 1) 
+toma2BrazoDerecho,
+
+(select toma2BrazoIzquierdo from fichaClinica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFC DESC limit 1) 
+toma2BrazoIzquierdo,
+/* TERMINA FICHA ANTROPROMETRICA */
+
+
+/* FICHA BIOQUIMICA */
+(select colesterol from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+colesterol,
+
+(select trigliceridos from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+trigliceridos,
+
+(select hdl from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+hdl,
+
+(select ldl from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+ldl,
+
+(select vdl from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+vdl,
+
+(select ldlvdl  from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+ldlvdl ,
+
+
+
+(select glucosaBasal  from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+glucosaBasal ,
+
+(select insulinaBasal  from fichaBioquimica 
+where
+matricula = fa.matricula 
+and 
+fecha=fa.fecha
+ order by keyFB DESC limit 1) 
+insulinaBasal 
+/* TERMINA FICHA BIOQUIMICA */
+
+
+from fichaBioquimica fa where 
+matricula ='$matricula'
+group by fecha
+order by keyFB DESC";
 
 
 
@@ -66,19 +209,24 @@ if ($result->num_rows > 0) {
         
 
         $data[] = array(
-            'matricula'             => $rPx['matricula'],
-            'grado'                 => $rPx['grado'],
-            'nombre'                => $rPx['nombre'],
-            'escuela'               => $rPx['descripcionEscuela'],
-            'fecha'                 => $rPx['fecha'],
-            'nombre'                => $rPx['nombre'],
-            'edad'                => $rPx['edad'],
-            'sexo'                => $rPx['sexo'],
-            'nombre2'                => $rPx['nombre2'],
-            'apellidoPaterno'                => $rPx['apellidoPaterno'],
-            'apellidoMaterno'                => $rPx['apellidoMaterno'],
-            'nombreCompleto'                => $nombreCompleto,
-            'id_escuela'                    => $rPx['id_escuela'],
+            'fecha'             => $rPx['fecha'],
+            'talla'                 => $rPx['talla'],
+            'peso'                => $rPx['peso'],
+            'cMuneca'               => $rPx['cMuneca'],
+            'cCadera'                 => $rPx['cCadera'],
+            'toma1BrazoDerecho'                => $rPx['toma1BrazoDerecho'],
+            'toma1BrazoIzquierdo'                => $rPx['toma1BrazoIzquierdo'],
+            'toma2BrazoIzquierdo'                => $rPx['toma2BrazoIzquierdo'],
+            'toma2BrazoDerecho'                => $rPx['toma2BrazoDerecho'],
+            
+            'colesterol'                => $rPx['colesterol'],
+            'trigliceridos'                => $rPx['trigliceridos'],
+            'hdl'                => $rPx['hdl'],
+            'ldl'                    => $rPx['ldl'],
+            'ldlvdl'                => $rPx['ldlvdl'],
+            'vdl'                => $rPx['vdl'],
+            'insulinaBasal'                => $rPx['insulinaBasal'],
+            'glucosaBasal'                    => $rPx['glucosaBasal']
         );
         
     }
