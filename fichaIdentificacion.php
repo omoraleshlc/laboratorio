@@ -4,7 +4,11 @@
 var inicia = angular.module('inicia', []);
 
 </script>
-
+<style type="text/css">
+table {
+   font-size: 12px;
+}
+</style>
 
 <div  class="container" ng-app ="inicia" ng-cloak=""
 ng-controller="ctrlLab" 
@@ -278,12 +282,90 @@ role="dialog" aria-labelledby="historialAlumnoModal">
 
     <section>
     <div class="panel panel-info">
-        <div class="panel panel-heading">
-            <div class="h1"></div>
+        <div class="panel panel-heading text-left">
+            
         </div>
+       
         
         <div class="panel panel-body">
             
+            <label>Datos Antroprométricos</label>
+            <table class="table table-striped table-hover ">
+                
+                <tr>
+                <th>
+                    Peso 
+                </th>
+                <th>
+                    Talla
+                </th>
+                <th>
+                    IMC
+                </th>
+                </tr>
+                
+                
+                <tr>
+                    <td></td>
+                </tr>
+            </table> 
+            
+            <hr>
+            
+            
+<label>Datos Bioquímicos</label>
+            <table class="table table-striped table-hover">
+                
+                <tr>
+                <th>
+                    Descripción 
+                </th>
+                <th>
+                    Resultados
+                </th>
+                <th>
+                    Rangos Normales
+                </th>
+                </tr>
+                
+                
+                <tr>
+                    <td></td>
+                </tr>
+            </table>   
+
+
+
+
+
+
+
+<hr>
+
+
+<label>Datos Bioquímicos</label>
+            <table class="table table-striped table-hover">
+                
+                <tr>
+                <th>
+                    Presión Arterial 
+                </th>
+                <th>
+                    108/57
+                </th>
+                <th>
+                   NORMAL
+                </th>
+                </tr>
+                
+                
+                <tr>
+                    <td></td>
+                </tr>
+            </table>    
+
+
+
         </div>
     </div>
     </section>
