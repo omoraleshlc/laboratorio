@@ -42,7 +42,7 @@ $string = array();
    
 if($matricula){
  $sql = "select 
-fecha,
+DATE_FORMAT(fecha, '%d/%m/%Y') fecha,
 
 /* FICHA ANTROPROMETRICA */
 (select talla from fichaAntropometrica 

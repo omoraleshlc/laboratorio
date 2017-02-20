@@ -22,7 +22,11 @@ Catálogo de Escuelas
 
 
 
-
+<style type="text/css">
+table {
+   font-size: 12px;
+}
+</style>
 
 
 <!-- Button trigger modal -->

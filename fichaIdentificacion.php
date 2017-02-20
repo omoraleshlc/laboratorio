@@ -283,6 +283,13 @@ role="dialog" aria-labelledby="historialAlumnoModal">
     <div class="panel panel-info">
         <div class="panel panel-heading text-left">
             {{arrH.fecha}}
+            <a style="cursor:pointer"
+               class="pull-right"
+               onClick="javascript:nueva('exportaWordAlumno.php?entidad=01&status=Revision&almacenDestino=*&excel=si', 'resumenClinico', '800', '800', 'yes')"
+               >
+               <span class="glyphicon glyphicon-export " aria-hidden="true"></span>
+
+        </a>
         </div>
        
         

@@ -47,7 +47,11 @@
     
     </script>
     
-
+<script language=javascript>
+function nueva(URL) {
+window.open(URL, "nueva", "width=1024,height=800,scrollbars=YES,resizable=YES, maximizable=YES")
+}
+</script>
     
 
      
