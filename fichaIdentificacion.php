@@ -84,9 +84,11 @@ placeholder="Buscar Alumno" />
 
 
 </div><br>
+<div class="label label-danger" ng-hide="listaAlumnos">
+    No hay registros!
+</div>
 
-
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" ng-show="listaAlumnos">
 
 <th>#</th>
 <th class="text-left" data-toggle="tooltip" data-placement="top" title="Matricula">Matrícula</th>
@@ -188,7 +190,7 @@ data-toggle="modal" data-target="#historialAlumnoModal">
 
 <label data-toggle="tooltip" data-placement="top" title="Eliminar Alumno">
 <a ng-click="eliminarAlumno(arrayAlumnos.matricula);"
-onclick="if(confirm('Esta seguro que deseas agregar el articulo como articulos varios?') == false){return false;}" 
+onclick="if(confirm('Esta seguro que deseas quitar este alumno?') == false){return false;}" 
 style="cursor:pointer;color:red" 
 >
 <span class="glyphicon glyphicon-trash  " aria-hidden="true"></span>

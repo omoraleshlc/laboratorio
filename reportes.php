@@ -30,7 +30,7 @@ and open the template in the editor.
 
 <div id="graficaLaboratorio"
      style="min-width: 310px; 
-     max-width: 800px; height: 400px; margin: 0 auto"></div>
+     max-width: 1700px; height: 450px; margin: 0 auto"></div>
 
 
     
@@ -172,8 +172,9 @@ $http({
            data: params
        })
 .then(function(res,data) {
-   $scope.arreglo = res.data;
- $scope.llenarValores($scope.arreglo);
+    
+$scope.arreglo = res.data;
+$scope.llenarValores($scope.arreglo);
 
 //$scope.mensajeFichaAntro = 'Ficha Antropométrica agregada!'; // 
 });  
