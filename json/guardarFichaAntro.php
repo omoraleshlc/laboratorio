@@ -20,44 +20,38 @@ $data = array();
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();*/
 
-    if($obj_d->matricula){
+
+
+//Guardo o inserto
+    if(!$obj_d->keyFA ){
         
-/*$sql = "INSERT INTO `laboratorio`.`identificacionAlumno` "
-        . "( `matricula`, `nombre`, `apellidoPaterno`, "
-        . "`apellidoMaterno`, `edad`, `fecha`, `id_escuela`,"
-        . " `grado`,sexo) "
-        . "VALUES ( '".$obj_d->talla."', "
-        . "'$obj_d->peso', "
-        . "'$obj_d->cMuneca', "
-        . "'$obj_d->cCadera',"
-        . " '$obj_d->matricula',"
-        . " '$fecha',"
-        . " '$obj_d->id_escuela',"
-        . " '$obj_d->grado','$obj_d->sexo');";*/
 
  $sql = "INSERT INTO `laboratorio`.`fichaAntropometrica` (`keyFA`, `talla`,"
         . " `peso`, `cMuneca`, `cCadera`, `matricula`, fecha , id_escuela) "
         . "VALUES (NULL, '".$obj_d->talla."', '$obj_d->peso', "
-        . "'$obj_d->cirMun', '$obj_d->cirCad', '$obj_d->matricula',"
+        . "'$obj_d->cMuneca', '$obj_d->cCadera', '$obj_d->matricula',"
         . " '$fecha','$obj_d->id_escuela');";
+      
+    }else{
+         $sql = "UPDATE `laboratorio`.`fichaAntropometrica` "
+                 . "set "
+                 . "talla = '".$obj_d->talla."', "
+                 . "peso  = '$obj_d->peso', "
+                .  "cMuneca = '$obj_d->cMuneca',"
+                 . "cCadera = '$obj_d->cCadera',"
+        . "fecha= '$fecha',id_escuela = '$obj_d->id_escuela' WHERE keyFA='$obj_d->keyFA';";
+    }
 
 
+    
+    
+       
+    
+    //SALE AQUI SI TIENE ERRORES
+if ($conn->query($sql) === TRUE) {
  $data[] = array(
             'mensaje'            => 'AGREGADO!'
-        );    
-   print json_encode($data); 
-       
-   print json_encode($data); 
-    }
-//echo $sql;
-
-    
-    
-       
-    
-    
-if ($conn->query($sql) === TRUE) {
-    //echo "Agregado!";
+        );   
     print json_encode($data); 
 } else {
  $data[] = array(

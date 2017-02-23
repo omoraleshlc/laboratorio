@@ -20,7 +20,7 @@ $data = array();
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
-    if($obj_d->matricula){
+    if($obj_d->fb){
         
 /*$sql = "INSERT INTO `laboratorio`.`identificacionAlumno` "
         . "( `matricula`, `nombre`, `apellidoPaterno`, "
@@ -34,7 +34,17 @@ $row = $result->fetch_assoc();
         . " '$fecha',"
         . " '$obj_d->id_escuela',"
         . " '$obj_d->grado','$obj_d->sexo');";*/
-
+$sql = "UPDATE fichaBioquimica set "
+        . "colesterol = '$obj_d->colesterol',"
+        . "trigliceridos =  '$obj_d->trigliceridos',"
+        . "hdl = '$obj_d->hdl',"
+        . "ldl = '$obj_d->ldl', "
+        . "vdl = '$obj_d->vdl', "
+        . "ldlvdl = '$obj_d->ldlvdl',"
+        . "insulinaBasal = '$obj_d->insulinaBasal',"
+        . "glucosaBasal = '$obj_d->glucosaBasal' "
+        . " where keyFB = '$obj_d->keyFB'  ";
+    }else{
  $sql = "INSERT INTO `laboratorio`.`fichaBioquimica` (`keyFB`, `colesterol`, `trigliceridos`,"
         . " `hdl`, `ldl`, `vdl`, `ldlvdl`, `insulinaBasal`, `glucosaBasal`, `matricula`, "
         . "`id_escuela`,fecha) VALUES (NULL, '$obj_d->colesterol',"
@@ -46,15 +56,10 @@ $row = $result->fetch_assoc();
         
         
 
-
-
- $data[] = array(
-            'mensaje'            => 'AGREGADO!'
-        );    
-   print json_encode($data); 
-       
-   print json_encode($data); 
-    }
+  }
+  
+  
+  
 //echo $sql;
 
     
@@ -63,7 +68,10 @@ $row = $result->fetch_assoc();
     
     
 if ($conn->query($sql) === TRUE) {
-    //echo "Agregado!";
+
+ $data[] = array(
+            'mensaje'            => 'AGREGADO!'
+        );  
     print json_encode($data); 
 } else {
  $data[] = array(

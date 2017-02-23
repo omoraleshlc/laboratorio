@@ -60,7 +60,15 @@ table {
             
             <tr ng-repeat="arrayEscuelas in listaEscuelas">
                 <td>{{$index+1}}</td>
-                <td>{{arrayEscuelas.descripcion}}</td>
+                <td>
+            <!--<a style="cursor: pointer"   
+            data-toggle="modal" 
+            ng-click="editarEscuela(arrayEscuelas.id_escuela);"
+            data-target="#catalogoEscuela">-->
+            {{arrayEscuelas.descripcion}}
+            
+                    
+                </td>
 
                 <td></td>
                    <td></td>
@@ -176,6 +184,35 @@ inicia.controller('ctrlLab', function ctrlLab($scope, $http){
 $scope.fichaAntro = {};
 $scope.fichaClinica = {};
 $scope.fichaBio = {};
+
+
+
+/* Editar lista de escuelas */
+$scope.editarEscuela = function(id_escuela) {
+   
+   
+   var param = {
+   id_escuela:id_escuela    
+   };
+   
+   
+ $http({
+           url: 'json/editarEscuela.php',
+           method: 'POST',
+           data: param
+           //data: angular.toJson( $scope.escuelas ),
+           //transformRequest: false,
+           //headers: {'Content-Type': 'application/json'}
+       })
+.then(function( res,data) { 
+    
+$scope.listaEscuelas = res.data;
+});
+};
+
+
+
+
 
 
 

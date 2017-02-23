@@ -126,7 +126,7 @@ data-toggle="modal" data-target="#editarAlumnoM">
 <label data-toggle="tooltip"
 data-placement="top" title="Agregar ficha antropométrica">
 <!-- Button trigger modal -->
-<a ng-click="cargarFichaAntro(arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
+<a ng-click="mostrarFichaAntro(arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaAntroModal">
@@ -297,7 +297,7 @@ role="dialog" aria-labelledby="historialAlumnoModal">
         
         <div class="panel panel-body">
             
-            <label>Datos Antroprométricos</label>
+            <label>Datos Antropométricos</label>
             <table class="table table-striped table-hover ">
                 
                 <tr>
@@ -729,7 +729,7 @@ role="dialog" aria-labelledby="fichaBioModal">
 <div class="modal-content">
 
 
-<form name="formafichaAntro" method="post" class="form-horizontal">
+<form name="formafichaBio" method="post" class="form-horizontal">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -768,27 +768,7 @@ readonly=""
 
 
 
-<script>
-function isNumberKey(evt){
-var charCode = (evt.which) ? evt.which : event.keyCode
-if (charCode == 46){
-var inputValue = $(".numericos").val();
-var count = (inputValue.match(/'.'/g) || []).length;
-if(count<1){
-if (inputValue.indexOf('.') < 1){
-return true;
-}
-return false;
-}else{
-return false;
-}
-}
-if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)){
-return false;
-}
-return true;
-}          
-</script>
+
 
 <div class="form-group" 
 ng-class="!fichaBio.colesterol ?'form-group  has-error' :  'form-group ';">
@@ -931,9 +911,8 @@ onkeypress="return isNumberKey(event)"
 </div>          
 
 
-
-
-<input type="text" class="hidden" ng-model="fichaAntro.id_escuela">
+<input type="text" class="hidden" ng-model="fichaBio.keyFB">
+<input type="text" class="hidden" ng-model="fichaBio.id_escuela">
 
 </fieldset>
 </form>          
@@ -960,9 +939,9 @@ onkeypress="return isNumberKey(event)"
 <div class="col-md-8">
 
 
-<button id="button1id" 
+<button 
 
-ng-if="
+ng-show="
 fichaBio.matricula && 
 fichaBio.colesterol>0 && 
 fichaBio.trigliceridos>0 && 
@@ -975,7 +954,7 @@ fichaBio.glucosaBasal > 0 &&
 fichaBio.id_escuela 
 
 "
-name="button1id" 
+
 ng-click="guardarFichaBio();listaEscuelaFunction();"
 class="btn btn-success"
 data-dismiss="modal"
@@ -983,7 +962,10 @@ data-dismiss="modal"
 Guardar
 </button>
 
-
+<button type="button" class="btn btn-primary" 
+        ng-show="fichaBio.keyFB"
+ng-click="nuevaFichaBio(fichaBio.matricula);"
+>Nuevo</button>  
 
 <button type="submit" class="btn btn-default" 
 ng-click="listaEscuelaFunction();"
@@ -1054,15 +1036,21 @@ role="dialog" aria-labelledby="fichaAntroModal">
 
 
 <div class="form-group" 
-ng-class="!fichaAntro.matricula ?'form-group  has-error' :  'form-group ';">
+ng-class="!fichaAntro.matricula?'form-group  has-error' :  'form-group ';">
 <label class="col-md-4 control-label" for="cod">Matricula:</label>  
 <div class="col-md-4">
 <input id="cod" name="cod" placeholder="" 
 ng-model="fichaAntro.matricula"
-class="form-control input-md" type="text" required=""
+class="form-control input-md" type="text" 
 readonly=""
 >
 
+
+<input id="keyFA" name="keyFA" placeholder="KEY" 
+ng-model="fichaAntro.keyFA"
+class="form-control input-md hidden" type="text" required=""
+readonly=""
+>
 </div>
 </div>
 
@@ -1128,11 +1116,11 @@ maxlength="6"
 
 
 <div class="form-group" 
-ng-class="!fichaAntro.cirMun ?'form-group  has-error' :  'form-group ';">
+ng-class="!fichaAntro.cMuneca ?'form-group  has-error' :  'form-group ';">
 <label class="col-md-4 control-label" for="cod">Circ. Muñeca:</label>  
 <div class="col-md-4">
 <input id="cod" name="cod" placeholder="" 
-ng-model="fichaAntro.cirMun"
+ng-model="fichaAntro.cMuneca"
 class="form-control input-md numericos" type="text" required=""
 onkeypress="return isNumberKey(event)" 
 >
@@ -1146,11 +1134,11 @@ onkeypress="return isNumberKey(event)"
 
 
 <div class="form-group" 
-ng-class="!fichaAntro.cirCad ?'form-group  has-error' :  'form-group ';">
+ng-class="!fichaAntro.cCadera ?'form-group  has-error' :  'form-group ';">
 <label class="col-md-4 control-label" for="cod">Circ. Cadera:</label>  
 <div class="col-md-4">
 <input id="cod" name="cod" placeholder="" 
-ng-model="fichaAntro.cirCad"
+ng-model="fichaAntro.cCadera"
 class="form-control input-md numericos" type="text" required=""
 onkeypress="return isNumberKey(event)" 
 >
@@ -1193,8 +1181,8 @@ onkeypress="return isNumberKey(event)"
 ng-if="
 fichaAntro.matricula && 
 fichaAntro.peso && 
-fichaAntro.cirMun && 
-fichaAntro.cirCad && 
+fichaAntro.cMuneca && 
+fichaAntro.cCadera && 
 fichaAntro.talla > 0 
 "
 name="button1id" 
@@ -1205,6 +1193,12 @@ data-dismiss="modal"
 Guardar
 </button>
 
+   
+<button type="button" class="btn btn-primary" 
+        ng-show="fichaAntro.keyFA"
+ng-click="nuevaFichaAntro(fichaAntro.matricula);"
+>Nuevo</button>    
+    
 
 
 <button type="submit" class="btn btn-default" 
@@ -1267,6 +1261,12 @@ ng-class="!fichaClinica.matricula ?'form-group  has-error' :  'form-group ';">
 <input id="cod" name="cod" placeholder="" 
 ng-model="fichaClinica.matricula"
 class="form-control input-md numericos" type="text" required=""
+readonly=""
+>
+
+<input id="keyFC" name="keyFC" placeholder="" 
+ng-model="fichaClinica.keyFC"
+class="form-control input-md numericos hidden" type="text" required=""
 readonly=""
 >
 
@@ -1396,7 +1396,10 @@ data-dismiss="modal"
 Guardar
 </button>
 
-
+<button type="button" class="btn btn-primary" 
+        ng-show="fichaClinica.keyFC"
+ng-click="nuevaFichaClinica(fichaClinica.matricula);"
+>Nuevo</button> 
 
 <button type="submit" class="btn btn-default" 
 
@@ -1692,7 +1695,109 @@ inicia.controller('ctrlLab', function ctrlLab($scope, $http){
 //Definir objetos
 $scope.fichaAntro = {};
 $scope.fichaClinica = {};
+$scope.fichaAntroReadonly = true;
 $scope.fichaBio = {};
+
+
+
+$scope.nuevaFichaBio = function(matricula){
+  
+  $scope.fichaBio = {};
+  $scope.fichaBio.matricula = matricula;
+
+};
+
+
+
+$scope.nuevaFichaClinica = function(matricula){
+  
+  $scope.fichaClinica = {};
+  $scope.fichaClinica.matricula = matricula;
+
+};
+
+
+$scope.nuevaFichaAntro = function(matricula){
+  
+  $scope.fichaAntro = {};
+  $scope.fichaAntro.matricula = matricula;
+
+};
+
+
+
+
+
+/* Mostrar y actualizar la ultima ficha clinica*/
+$scope.cargarFichaClinica = function(matricula,id_escuela){ 
+
+var params = {matricula:matricula};
+
+$http({
+url: 'json/mostrarFichaClinica.php',
+method: 'POST',
+data: params
+//data: angular.toJson( $scope.escuelas ),
+//transformRequest: false,
+//headers: {'Content-Type': 'application/json'}
+})
+.then(function(res,data) {  
+
+if(res.data.length>0){
+   
+$scope.fichaClinica = res.data[0];   
+
+
+}else{
+    $scope.fichaClinica.matricula = matricula;   
+$scope.fichaClinica.id_escuela = id_escuela; 
+}
+
+
+
+
+$scope.mensaje = "Actualizado";
+});
+};
+
+
+
+
+
+
+/* mostrar la ultima ficha antro */
+$scope.mostrarFichaAntro = function(matricula) {
+
+var params = {matricula:matricula};
+
+$http({
+url: 'json/mostrarFichaAntro.php',
+method: 'POST',
+data: params
+//data: angular.toJson( $scope.escuelas ),
+//transformRequest: false,
+//headers: {'Content-Type': 'application/json'}
+})
+.then(function(res,data) {  
+
+if(res.data.length>0){
+$scope.fichaAntro = res.data[0];   
+
+
+}else{
+    $scope.fichaAntro.matricula = matricula;   
+$scope.fichaAntro.id_escuela = id_escuela; 
+}
+
+
+
+
+$scope.mensaje = "Actualizado";
+});
+};
+
+
+
 
 
 
@@ -1719,7 +1824,7 @@ $scope.fichaBio = {};
 
 
 
-/* guardar ficha de identificacion */
+/* guardar ficha o actualiza de identificacion */
 $scope.guardarFichaClinica = function() {
 
 var params = {fichaAntro:$scope.fichaAntro};
@@ -1759,18 +1864,42 @@ $scope.fichaAntro = {};
 
 };
 
+
+
+
+
 $scope.cargarFichaBio = function(matricula,id_escuela){ 
-$scope.fichaBio.matricula = matricula;   
+
+var params = {matricula:matricula};
+
+$http({
+url: 'json/mostrarFichaBio.php',
+method: 'POST',
+data: params
+//data: angular.toJson( $scope.escuelas ),
+//transformRequest: false,
+//headers: {'Content-Type': 'application/json'}
+})
+.then(function(res,data) {  
+
+if(res.data.length>0){
+   
+$scope.fichaBio = res.data[0];   
+
+
+}else{
+    $scope.fichaBio.matricula = matricula;   
 $scope.fichaBio.id_escuela = id_escuela; 
+}
+
+
+
+
+$scope.mensaje = "Actualizado";
+});
 };
 
 
-$scope.cargarFichaAntro = function(matricula,id_escuela){ 
-    $scope.fichaAntro = {};
-$scope.fichaAntro.matricula = matricula;   
-$scope.fichaAntro.id_escuela = id_escuela; 
-
-};
 
 
 
@@ -1810,10 +1939,6 @@ $scope.mensaje = "";
 
 
 
-$scope.cargarFichaClinica = function(matricula,id_escuela){ 
-$scope.fichaClinica.matricula = matricula;   
-$scope.fichaClinica.id_escuela = id_escuela; 
-};
 
 
 
