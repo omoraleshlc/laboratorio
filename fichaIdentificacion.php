@@ -310,9 +310,9 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 <th>
                     IMC
                 </th>
-                <th>
+                <!--<th>
                     Presión Arterial
-                </th>                
+                </th>                -->
                 </tr>
                 
                 
@@ -1156,7 +1156,7 @@ onkeypress="return isNumberKey(event)"
 <label class="col-md-4 control-label" for="cod">IMC:</label>  
 <div class="col-md-4" ng-if="fichaAntro.peso>0 && fichaAntro.talla>0">
     <div class="form-control">    
-{{fichaAntro.peso/(fichaAntro.talla*2) | number: 2}}
+{{fichaAntro.peso/((fichaAntro.talla/100)*2) | number: 2}}
     </div>
 </div>
 </div>
@@ -1180,7 +1180,7 @@ onkeypress="return isNumberKey(event)"
 
 
 
-<div class="form-group" 
+<!--<div class="form-group" 
 ng-class="!fichaAntro.presionArterial ?'form-group  has-error' :  'form-group ';">
 <label class="col-md-4 control-label" for="cod">Presión Arterial:</label>  
 <div class="col-md-4">
@@ -1191,7 +1191,7 @@ class="form-control input-md numericos" type="text" required=""
 >
 </div>
 </div>
-
+-->
 
 <input type="text" class="hidden" ng-model="fichaAntro.id_escuela">
 </fieldset>
@@ -1226,7 +1226,9 @@ fichaAntro.matricula &&
 fichaAntro.peso && 
 fichaAntro.cMuneca && 
 fichaAntro.cCadera && 
-fichaAntro.talla > 0 
+fichaAntro.talla && 
+fichaAntro.cGC
+> 0 
 "
 name="button1id" 
 ng-click="guardarFichaAntro();listaEscuelaFunction();"
