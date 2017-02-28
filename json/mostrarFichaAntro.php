@@ -58,10 +58,13 @@ if ($result->num_rows > 0) {
         $data[] = array(
             'matricula'             => $rPx['matricula'],
             'talla'                 => $rPx['talla'],
-            'peso'                => $rPx['peso'],
+            'peso'                  => $rPx['peso'],
             'cMuneca'               => $rPx['cMuneca'],
-            'cCadera'                 => $rPx['cCadera'],
-            'keyFA'                 => $rPx['keyFA']
+            'cCadera'               => $rPx['cCadera'],
+            'keyFA'                 => $rPx['keyFA'],
+            'cGC'                   => $rPx['cGC'],
+            'presionArterial'       => $rPx['presionArterial'],
+            
         );
         
     }

@@ -1117,7 +1117,7 @@ maxlength="6"
 
 <div class="form-group" 
 ng-class="!fichaAntro.cMuneca ?'form-group  has-error' :  'form-group ';">
-<label class="col-md-4 control-label" for="cod">Circ. Muñeca:</label>  
+<label class="col-md-4 control-label" for="cod">Cintura:</label>  
 <div class="col-md-4">
 <input id="cod" name="cod" placeholder="" 
 ng-model="fichaAntro.cMuneca"
@@ -1135,7 +1135,7 @@ onkeypress="return isNumberKey(event)"
 
 <div class="form-group" 
 ng-class="!fichaAntro.cCadera ?'form-group  has-error' :  'form-group ';">
-<label class="col-md-4 control-label" for="cod">Circ. Cintura:</label>  
+<label class="col-md-4 control-label" for="cod">Cadera:</label>  
 <div class="col-md-4">
 <input id="cod" name="cod" placeholder="" 
 ng-model="fichaAntro.cCadera"
@@ -1157,6 +1157,36 @@ onkeypress="return isNumberKey(event)"
 </div>
 </div>
 
+
+
+
+
+
+<div class="form-group" 
+ng-class="!fichaAntro.cGC ?'form-group  has-error' :  'form-group ';">
+<label class="col-md-4 control-label" for="cod">Grasa Corporal:</label>  
+<div class="col-md-4">
+<input id="cod" name="cod" placeholder="" 
+ng-model="fichaAntro.cGC"
+class="form-control input-md numericos" type="text" required=""
+onkeypress="return isNumberKey(event)" 
+>
+</div>
+</div>
+
+
+
+<div class="form-group" 
+ng-class="!fichaAntro.presionArterial ?'form-group  has-error' :  'form-group ';">
+<label class="col-md-4 control-label" for="cod">Presión Arterial:</label>  
+<div class="col-md-4">
+<input id="cod" name="cod" placeholder="" 
+ng-model="fichaAntro.presionArterial"
+class="form-control input-md numericos" type="text" required=""
+onkeypress="return isNumberKey(event)" 
+>
+</div>
+</div>
 
 
 <input type="text" class="hidden" ng-model="fichaAntro.id_escuela">
