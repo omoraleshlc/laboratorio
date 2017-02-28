@@ -310,6 +310,9 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 <th>
                     IMC
                 </th>
+                <th>
+                    Grasa Corporal
+                </th>
                 <!--<th>
                     Presión Arterial
                 </th>                -->
@@ -319,8 +322,8 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 <tr>
                     <td>{{arrH.peso}}</td>
                     <td>{{arrH.talla}}</td>
-                    <td>{{arrH.peso/(arrH.talla*2)}}</td>
-                    <td>{{arrH.presionArterial}}</td>
+                    <td>{{arrH.peso/((arrH.talla/100)*2) | number: 2}}</td>
+                    <td>{{arrH.cGC}}</td>
                 </tr>
             </table> 
             
@@ -378,11 +381,11 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                     <td><100mg/dl</td>
                 </tr> 
                 
-                <tr>
+                <!--<tr>
                     <td>Presion Arterial</td>
                     <td>{{arrH.presionArterial }}mg/dl</td>
                     <td>---</td>
-                </tr>
+                </tr>-->
             </table>   
 
 
