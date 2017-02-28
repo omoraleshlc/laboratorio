@@ -1135,22 +1135,31 @@ onkeypress="return isNumberKey(event)"
 
 <div class="form-group" 
 ng-class="!fichaAntro.cCadera ?'form-group  has-error' :  'form-group ';">
-<label class="col-md-4 control-label" for="cod">Circ. Cadera:</label>  
+<label class="col-md-4 control-label" for="cod">Circ. Cintura:</label>  
 <div class="col-md-4">
 <input id="cod" name="cod" placeholder="" 
 ng-model="fichaAntro.cCadera"
 class="form-control input-md numericos" type="text" required=""
 onkeypress="return isNumberKey(event)" 
 >
-<input type="text" class="hidden" ng-model="fichaAntro.id_escuela">
+
 </div>
 </div> 
 
 
 
+<div class="form-group">
+<label class="col-md-4 control-label" for="cod">IMC:</label>  
+<div class="col-md-4" ng-if="fichaAntro.peso>0 && fichaAntro.talla>0">
+    <div class="form-control">    
+{{fichaAntro.peso/(fichaAntro.talla*2) | number: 2}}
+    </div>
+</div>
+</div>
 
 
 
+<input type="text" class="hidden" ng-model="fichaAntro.id_escuela">
 </fieldset>
 </form>          
 
@@ -1781,9 +1790,7 @@ data: params
 .then(function(res,data) {  
 
 if(res.data.length>0){
-$scope.fichaAntro = res.data[0];   
-
-
+$scope.fichaAntro = res.data[0]; 
 }else{
     $scope.fichaAntro.matricula = matricula;   
 $scope.fichaAntro.id_escuela = id_escuela; 
