@@ -27,10 +27,10 @@ $row = $result->fetch_assoc();*/
         
 
  $sql = "INSERT INTO `laboratorio`.`fichaAntropometrica` (`keyFA`, `talla`,"
-        . " `peso`, `cMuneca`, `cCadera`, `matricula`, fecha , id_escuela,cGC) "
+        . " `peso`, `cMuneca`, `cCadera`, `matricula`, fecha , id_escuela,cGC,presionArterial) "
         . "VALUES (NULL, '".$obj_d->talla."', '$obj_d->peso', "
         . "'$obj_d->cMuneca', '$obj_d->cCadera', '$obj_d->matricula',"
-        . " '$fecha','$obj_d->id_escuela','$obj_d->cGC);";
+        . " '$fecha','$obj_d->id_escuela','$obj_d->cGC','$obj_d->cGC');";
       
     }else{
          $sql = "UPDATE `laboratorio`.`fichaAntropometrica` "
@@ -39,6 +39,7 @@ $row = $result->fetch_assoc();*/
                  . "peso  = '$obj_d->peso', "
                 .  "cMuneca = '$obj_d->cMuneca',"
                  . "cCadera = '$obj_d->cCadera',"
+                 . "presionArterial = '$obj_d->presionArterial',"
                  . "cGC = '$obj_d->cGC',"
         . "fecha= '$fecha',id_escuela = '$obj_d->id_escuela' WHERE keyFA='$obj_d->keyFA';";
     }

@@ -1183,7 +1183,7 @@ ng-class="!fichaAntro.presionArterial ?'form-group  has-error' :  'form-group ';
 <input id="cod" name="cod" placeholder="" 
 ng-model="fichaAntro.presionArterial"
 class="form-control input-md numericos" type="text" required=""
-onkeypress="return isNumberKey(event)" 
+
 >
 </div>
 </div>
