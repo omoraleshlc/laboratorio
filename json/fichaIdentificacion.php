@@ -22,6 +22,9 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 
+$nombre = utf8_encode($obj_d->nombre);
+
+
     if(!$row['matricula']){
         
 $sql = "INSERT INTO `laboratorio`.`identificacionAlumno` "
@@ -29,7 +32,7 @@ $sql = "INSERT INTO `laboratorio`.`identificacionAlumno` "
         . "`apellidoMaterno`, `edad`, `fecha`, `id_escuela`,"
         . " `grado`,sexo) "
         . "VALUES ( '".$obj_d->matricula."', "
-        . "'$obj_d->nombre', "
+        . "'$nombre', "
         . "'$obj_d->apellidoPaterno', "
         . "'$obj_d->apellidoMaterno',"
         . " '$obj_d->edad',"

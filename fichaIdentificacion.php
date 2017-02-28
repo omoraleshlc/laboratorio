@@ -310,13 +310,17 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 <th>
                     IMC
                 </th>
+                <th>
+                    Presión Arterial
+                </th>                
                 </tr>
                 
                 
                 <tr>
                     <td>{{arrH.peso}}</td>
                     <td>{{arrH.talla}}</td>
-                    <td>{{arrH.cCadera}}</td>
+                    <td>{{arrH.peso/(arrH.talla*2)}}</td>
+                    <td>{{arrH.presionArterial}}</td>
                 </tr>
             </table> 
             
@@ -387,10 +391,10 @@ role="dialog" aria-labelledby="historialAlumnoModal">
 
 
 
-<hr>
 
 
-<label>Datos Clinicos</label>
+
+<!--<label>Datos Clinicos</label>
             <table class="table table-striped table-hover">
                 
                 <tr>
@@ -410,7 +414,7 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                     <td></td>
                 </tr>
             </table>    
-
+-->
 
 
         </div>
