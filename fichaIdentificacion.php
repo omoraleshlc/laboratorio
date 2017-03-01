@@ -322,7 +322,7 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 <tr>
                     <td>{{arrH.peso}}</td>
                     <td>{{arrH.talla}}</td>
-                    <td>{{arrH.peso/((arrH.talla/100)*2) | number: 2}}</td>
+                    <td>{{arrH.peso/((arrH.talla/100)*(arrH.talla/100)) | number: 2}}</td>
                     <td>{{arrH.cGC}}</td>
                 </tr>
             </table> 
@@ -1159,7 +1159,7 @@ onkeypress="return isNumberKey(event)"
 <label class="col-md-4 control-label" for="cod">IMC:</label>  
 <div class="col-md-4" ng-if="fichaAntro.peso>0 && fichaAntro.talla>0">
     <div class="form-control">    
-{{fichaAntro.peso/((fichaAntro.talla/100)*2) | number: 2}}
+{{fichaAntro.peso/((fichaAntro.talla/100)*(fichaAntro.talla/100)) | number: 2}}
     </div>
 </div>
 </div>
