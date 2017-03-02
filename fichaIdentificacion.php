@@ -74,10 +74,16 @@ Nuevo
 
 <div class="row">
 <div class="col-xs-6">
-<input type="text" class="form-control input-md" 
+<input type="text" 
+       ng-class="todos?'form-control input-md hidden':'form-control input-md';"
+       class="form-control input-md" 
 ng-model="q"
 ng-change="buscarAlumnoxNombre();"
 placeholder="Buscar Alumno" />
+<input type="checkbox" 
+       ng-model="todos"
+       ng-click="mostrarTodos();"
+       > Mostrar Todos
 </div>
 
 
@@ -126,7 +132,7 @@ data-toggle="modal" data-target="#editarAlumnoM">
 <label data-toggle="tooltip"
 data-placement="top" title="Agregar ficha antropométrica">
 <!-- Button trigger modal -->
-<a ng-click="mostrarFichaAntro(arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
+<a ng-click="mostrarFichaAntro(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaAntroModal">
@@ -141,7 +147,7 @@ data-toggle="modal" data-target="#fichaAntroModal">
 
 <label data-toggle="tooltip"   data-placement="top" title="Agregar Ficha Clínica">
 <!-- Button trigger modal -->
-<a ng-click="cargarFichaClinica(arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
+<a ng-click="inicializarFichaClinica();cargarFichaClinica(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaClinica">
@@ -158,7 +164,7 @@ data-toggle="modal" data-target="#fichaClinica">
 
 <label data-toggle="tooltip"   data-placement="top" title="Agregar Ficha Bioquímica">
 <!-- Button trigger modal -->
-<a ng-click="cargarFichaBio(arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
+<a ng-click="inicializarFichaBio();cargarFichaBio(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaBioModal">
@@ -175,7 +181,7 @@ data-toggle="modal" data-target="#fichaBioModal">
 
 <label data-toggle="tooltip"   data-placement="top" title="Historial">
 <!-- Button trigger modal -->
-<a ng-click="mostrarHistorial(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
+<a ng-click="inicializarHistorial();mostrarHistorial(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#historialAlumnoModal">
@@ -258,9 +264,6 @@ role="dialog" aria-labelledby="historialAlumnoModal">
 
 
 <div class="modal-content">
-
-
-
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <h4 class="modal-title" id="myModalLabel">Historial del Alumno <strong>{{nombreCompleto}}</strong></h4>
@@ -458,8 +461,8 @@ role="dialog" aria-labelledby="historialAlumnoModal">
 
 
 
-<button type="submit" class="btn btn-default" 
-ng-click="listaEscuelaFunction();buscarAlumnoxNombre();"
+<button  class="btn btn-default" 
+ng-click="listaEscuelaFunction();"
 data-dismiss="modal">Cerrar</button>
 </div>
 </div>
@@ -503,7 +506,7 @@ role="dialog" aria-labelledby="editALumno">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Editar Alumno</h4>
+<h4 class="modal-title" id="myModalLabel">Editar Alumno </h4>
 
 <div class="alert alert-success" ng-show="mensajeAgregar">
 {{mensajeAgregar}}
@@ -688,7 +691,7 @@ editarAlumno.grado &&
 editarAlumno.sexo  
 "
 name="button1id" 
-ng-click="actualizarDatosAlumno();listaEscuelaFunction();buscarAlumnoxNombre();"
+ng-click="actualizarDatosAlumno();listaEscuelaFunction();mostrarTodos();"
 class="btn btn-success"
 data-dismiss="modal"
 >
@@ -698,7 +701,7 @@ Guardar
 
 
 <button type="submit" class="btn btn-default" 
-ng-click="listaEscuelaFunction();buscarAlumnoxNombre();"
+ng-click="listaEscuelaFunction();"
 data-dismiss="modal">Cerrar</button>
 </div>
 </div>
@@ -743,7 +746,7 @@ role="dialog" aria-labelledby="fichaBioModal">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Ficha Bioquímica </h4>
+<h4 class="modal-title" id="myModalLabel">Ficha Bioquímica <strong>{{nombreCompleto}}</strong></h4>
 
 <div class="alert alert-success" ng-show="mensajeFichaBio">
 {{mensajeFichaBio}}
@@ -1025,7 +1028,7 @@ role="dialog" aria-labelledby="fichaAntroModal">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Ficha Antroprométrica </h4>
+<h4 class="modal-title" id="myModalLabel">Ficha Antroprométrica <strong>{{nombreCompleto}}</strong></h4>
 
 <div class="alert alert-success" ng-show="mensajeFichaAntro">
 {{mensajeFichaAntro}}
@@ -1286,7 +1289,9 @@ role="dialog" aria-labelledby="fichaClinica">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Ficha Clínica </h4>
+<h4 class="modal-title" id="myModalLabel">Ficha Clínica <strong>{{nombreCompleto}}</strong>
+   
+</h4>
 
 <div class="alert alert-success" ng-show="mensajeFichaClinica">
 {{mensajeFichaClinica}}
@@ -1510,8 +1515,9 @@ role="dialog" aria-labelledby="agregarAlumno">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Ficha de Identificación</h4>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Ficha de Identificación <strong>{{nombreCompleto}}</strong></h4>
 
 <div class="alert alert-success" ng-show="mensajeAgregar">
 {{mensajeAgregar}}
@@ -1755,6 +1761,21 @@ $scope.inicializarAlumnos = function (){
 }
 
 
+$scope.inicializarFichaClinica = function (){
+    $scope.fichaClinica = {};
+} 
+
+
+$scope.inicializarFichaBio = function(){
+    $scope.fichaBio = {};
+}
+
+
+$scope.inicializarHistorial = function(){
+    $scope.listaHistorial = {};
+}
+
+
 $scope.nuevaFichaBio = function(matricula){
   
   $scope.fichaBio = {};
@@ -1784,8 +1805,8 @@ $scope.nuevaFichaAntro = function(matricula){
 
 
 /* Mostrar y actualizar la ultima ficha clinica*/
-$scope.cargarFichaClinica = function(matricula,id_escuela){ 
-
+$scope.cargarFichaClinica = function(nombreCompleto,matricula,id_escuela){ 
+$scope.nombreCompleto = nombreCompleto; 
 var params = {matricula:matricula};
 
 $http({
@@ -1821,7 +1842,8 @@ $scope.mensaje = "Actualizado";
 
 
 /* mostrar la ultima ficha antro */
-$scope.mostrarFichaAntro = function(matricula) {
+$scope.mostrarFichaAntro = function(nombreCompleto,matricula,escuela) {
+    $scope.nombreCompleto = nombreCompleto; 
 $scope.fichaAntro = {};
 var params = {matricula:matricula};
 
@@ -1921,8 +1943,8 @@ $scope.fichaAntro = {};
 
 
 
-$scope.cargarFichaBio = function(matricula,id_escuela){ 
-
+$scope.cargarFichaBio = function(nombreCompleto,matricula,id_escuela){ 
+$scope.nombreCompleto = nombreCompleto; 
 var params = {matricula:matricula};
 
 $http({
@@ -2052,7 +2074,20 @@ $scope.mensaje = "";
 
 
 
+/* mostrar lista de escuelas */
+$scope.mostrarTodos = function() {
 
+$http({
+url: 'json/listaTodosAlumnos.php',
+method: 'POST'
+//data: angular.toJson( $scope.escuelas ),
+//transformRequest: false,
+//headers: {'Content-Type': 'application/json'}
+})
+.then(function( res,data) {   
+$scope.listaAlumnos = res.data;
+});
+};
 
 
 
