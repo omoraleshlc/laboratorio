@@ -84,6 +84,7 @@ placeholder="Buscar Alumno" />
        ng-model="todos"
        ng-click="mostrarTodos();"
        > Mostrar Todos
+
 </div>
 
 
@@ -117,7 +118,8 @@ data-toggle="modal" data-target="#editarAlumnoM">
 
 </label>
     </td>
-<td data-toggle="tooltip" data-placement="top" title="Nombre del alumno">{{arrayAlumnos.nombreCompleto}}</td>
+<td data-toggle="tooltip" data-placement="top" title="Nombre del alumno">
+    {{arrayAlumnos.nombreCompleto}}</td>
 <td data-toggle="tooltip" data-placement="top" title="Escuela">{{arrayAlumnos.escuela}}</td>
 <td >
 
@@ -1683,7 +1685,7 @@ agregarAlumno.grado &&
 agregarAlumno.sexo  
 "
 name="button1id" 
-ng-click="guardarDatos();mensajeAgregar='ALUMNO AGREGADO';"
+ng-click="guardarDatos();mensajeAgregar='ALUMNO AGREGADO';mostrarTodos();"
 class="btn btn-success"
 data-dismiss="modal"
 
@@ -2114,7 +2116,7 @@ $scope.listaEscuelas = res.data;
 
 /* mostrar lista de escuelas */
 $scope.buscarAlumno = function(matricula) {
-
+$scope.editarAlumno = {};
 var params = {matricula:matricula};
 
 $http({
@@ -2127,7 +2129,13 @@ data: params
 })
 .then(function(res,data) {  
 
-$scope.editarAlumno = res.data[0];
+for(var i =0 in res.data){
+    if(res.data[i]){
+$scope.editarAlumno = res.data[i];    
+    }
+}
+
+
 $scope.mensaje = "ACTUALIZAR ALUMNO";
 });
 };
