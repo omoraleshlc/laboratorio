@@ -22,7 +22,7 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 
-$nombre = utf8_encode($obj_d->nombre);
+$nombre = $obj_d->nombre;
 
 
     if(!$row['matricula']){

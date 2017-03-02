@@ -25,7 +25,7 @@ Lista de Alumnos
 <div class="col-xs-12">
 <div class="text-right">
 <a style="cursor:pointer;"
-
+ng-click="inicializarAlumnos();"
 data-toggle="modal"    data-target="#agregarAlumno">
 <span class="glyphicon glyphicon-plus-sign " aria-hidden="true"></span>
 Nuevo
@@ -131,6 +131,7 @@ style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaAntroModal">
 <span class="glyphicon glyphicon-briefcase " aria-hidden="true"></span>
+
 </a>
 
 </label>
@@ -145,6 +146,7 @@ style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaClinica">
 <span class="glyphicon glyphicon-list-alt " aria-hidden="true"></span>
+
 </a>
 
 </label>
@@ -178,6 +180,7 @@ style="cursor:pointer;"
 
 data-toggle="modal" data-target="#historialAlumnoModal">
 <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+
 </a>
 
 </label>
@@ -1747,6 +1750,10 @@ $scope.fichaAntroReadonly = true;
 $scope.fichaBio = {};
 
 
+$scope.inicializarAlumnos = function (){
+    $scope.agregarAlumno = {};
+}
+
 
 $scope.nuevaFichaBio = function(matricula){
   
@@ -1815,7 +1822,7 @@ $scope.mensaje = "Actualizado";
 
 /* mostrar la ultima ficha antro */
 $scope.mostrarFichaAntro = function(matricula) {
-
+$scope.fichaAntro = {};
 var params = {matricula:matricula};
 
 $http({
