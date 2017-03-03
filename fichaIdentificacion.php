@@ -109,7 +109,7 @@ placeholder="Buscar Alumno" />
 <td data-toggle="tooltip" data-placement="top" title="Matrícula">
     <label data-toggle="tooltip" data-placement="top" title="Editar alumno">
 <!-- Button trigger modal -->
-<a ng-click="buscarAlumno(arrayAlumnos.matricula);"
+<a ng-click="buscarAlumno(arrayAlumnos.id_escuela,arrayAlumnos.matricula);"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#editarAlumnoM">
@@ -508,7 +508,7 @@ role="dialog" aria-labelledby="editALumno">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Editar Alumno </h4>
+<h4 class="modal-title" id="myModalLabel">Editar Alumno {{editarAlumno}}</h4>
 
 <div class="alert alert-success" ng-show="mensajeAgregar">
 {{mensajeAgregar}}
@@ -2115,9 +2115,9 @@ $scope.listaEscuelas = res.data;
 
 
 /* mostrar lista de escuelas */
-$scope.buscarAlumno = function(matricula) {
+$scope.buscarAlumno = function(id_escuela,matricula) {
 $scope.editarAlumno = {};
-var params = {matricula:matricula};
+var params = {matricula:matricula,id_escuela:id_escuela};
 
 $http({
 url: 'json/buscarAlumno.php',
@@ -2128,6 +2128,7 @@ data: params
 //headers: {'Content-Type': 'application/json'}
 })
 .then(function(res,data) {  
+
 
 for(var i =0 in res.data){
     if(res.data[i]){

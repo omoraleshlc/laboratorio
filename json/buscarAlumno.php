@@ -12,40 +12,20 @@ $obj_d = json_decode($json_d);
 
 $matricula = $obj_d->matricula;
 
-#variables
-$detectar= substr($q,0,1);
-$detectarN= substr($q,1,2);
 
-$string = array();
 
 
 
 
  
-/*
-    $split      = explode(" ", $q);
-    $sql_like   = "";
-    foreach ($split as $row){
-        $sql_like .= " 
-            UPPER(
-                CONCAT_WS(' ', 
-                    COALESCE(nombre1,''), 
-                    COALESCE(nombre2,''), 
-                    COALESCE(apellido1,''), 
-                    COALESCE(apellido2,'')
-                )
-            ) LIKE '%$row%' AND";
-    }
-    if($sql_like != ""){
-        $sql_like = substr($sql_like, 0, -3);
-    }
-    */
+
    
 if($matricula){
 
-$sql = "SELECT * "
+echo $sql = "SELECT * "
         . ""
-        . " FROM identificacionAlumno where matricula = '$matricula' ";
+        . " FROM identificacionAlumno where matricula = '$matricula' and "
+        . " id_escuela = '$obj_d->id_escuela' ";
 
 $result = $conn->query($sql);
 $data = array();
@@ -60,15 +40,14 @@ if ($result->num_rows > 0) {
         $data[] = array(
             'matricula'             => $rPx['matricula'],
             'grado'                 => $rPx['grado'],
-            'nombre'                => $rPx['nombre'],
             'escuela'               => $rPx['id_escuela'],
             'fecha'                 => $rPx['fecha'],
-            'nombre'                => $rPx['nombre'],
+            'nombre'                => utf8_encode($rPx['nombre']),
             'edad'                => $rPx['edad'],
             'sexo'                => $rPx['sexo'],
-            'nombre2'                => $rPx['nombre2'],
-            'apellidoPaterno'                => $rPx['apellidoPaterno'],
-            'apellidoMaterno'                => $rPx['apellidoMaterno'],
+            'nombre2'                => utf8_encode($rPx['nombre2']),
+            'apellidoPaterno'                => utf8_encode($rPx['apellidoPaterno']),
+            'apellidoMaterno'                => utf8_encode($rPx['apellidoMaterno']),
         );
         
     }
