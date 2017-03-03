@@ -1,3 +1,4 @@
+  <meta charset="UTF-8">
 <?php require_once '../config.inc.php';
 
 $json_d = array();
@@ -17,12 +18,13 @@ $matricula = $obj_d->matricula;
 
 
 
- 
+ //$matricula='412321312';
+ //$obj_d->id_escuela = 15;
 
    
 if($matricula){
 
-echo $sql = "SELECT * "
+ $sql = "SELECT * "
         . ""
         . " FROM identificacionAlumno where matricula = '$matricula' and "
         . " id_escuela = '$obj_d->id_escuela' ";
@@ -33,6 +35,8 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($rPx = $result->fetch_assoc()) {
       
+        echo utf8_encode($rPx['nombre']);
+        
         $nombreCompleto   = $rPx['nombre']." ".$rPx['nombre2']
                 ." ".$rPx['apellidoPaterno']." ".$rPx['apellidoMaterno'];
         $nombreCompleto   = utf8_encode(str_replace("  ", " ", $nombreCompleto));
@@ -59,7 +63,7 @@ if ($result->num_rows > 0) {
        
    
 }
-}
-
+}?>
+  </meta>
 
  

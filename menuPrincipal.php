@@ -59,7 +59,7 @@ window.open(URL, "nueva", "width=1024,height=800,scrollbars=YES,resizable=YES, m
 <html>
     <head>
         <title></title>
-        <meta charset="UTF-8">
+        <meta>
             <body>
 
 

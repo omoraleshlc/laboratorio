@@ -508,7 +508,7 @@ role="dialog" aria-labelledby="editALumno">
 
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Editar Alumno {{editarAlumno}}</h4>
+<h4 class="modal-title" id="myModalLabel">Editar Alumno </h4>
 
 <div class="alert alert-success" ng-show="mensajeAgregar">
 {{mensajeAgregar}}
@@ -2130,8 +2130,10 @@ data: params
 .then(function(res,data) {  
 
 
+
 for(var i =0 in res.data){
-    if(res.data[i]){
+    if(res.data[i].matricula){
+       
 $scope.editarAlumno = res.data[i];    
     }
 }
