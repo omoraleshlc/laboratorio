@@ -1,4 +1,4 @@
-  <meta charset="UTF-8">
+
 <?php require_once '../config.inc.php';
 
 $json_d = array();
@@ -17,10 +17,17 @@ $matricula = $obj_d->matricula;
 
 
 
+ //$matricula='L0312';
+ //$obj_d->id_escuela = 12;
 
- //$matricula='412321312';
- //$obj_d->id_escuela = 15;
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
    
 if($matricula){
 
@@ -35,35 +42,49 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($rPx = $result->fetch_assoc()) {
       
-        echo utf8_encode($rPx['nombre']);
         
-        $nombreCompleto   = $rPx['nombre']." ".$rPx['nombre2']
-                ." ".$rPx['apellidoPaterno']." ".$rPx['apellidoMaterno'];
-        $nombreCompleto   = utf8_encode(str_replace("  ", " ", $nombreCompleto));
+        
+        $nombre =  utf8_encode($rPx['nombre']);
+        $aPaterno = utf8_encode( $rPx['apellidoPaterno']);
+        $aMaterno = utf8_encode( $rPx['apellidoMaterno']);
 
+         
         $data[] = array(
             'matricula'             => $rPx['matricula'],
             'grado'                 => $rPx['grado'],
             'escuela'               => $rPx['id_escuela'],
             'fecha'                 => $rPx['fecha'],
-            'nombre'                => utf8_encode($rPx['nombre']),
+            'nombre'                => $rPx['nombre'],
             'edad'                => $rPx['edad'],
             'sexo'                => $rPx['sexo'],
-            'nombre2'                => utf8_encode($rPx['nombre2']),
-            'apellidoPaterno'                => utf8_encode($rPx['apellidoPaterno']),
-            'apellidoMaterno'                => utf8_encode($rPx['apellidoMaterno']),
+            'nombre2'                => $rPx['nombre2'],
+            'apellidoPaterno'                => $aPaterno,
+            'apellidoMaterno'                => $aMaterno,
         );
+        
+
+
+// $structure is now utf8 encoded
+
         
     }
    
-    
 
-   
         print json_encode($data);
        
    
 }
-}?>
-  </meta>
+}
+
+
+
+
+
+
+
+
+
+?>
+
 
  

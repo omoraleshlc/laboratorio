@@ -43,11 +43,15 @@ $string = array();
    
 if($matricula){
 
+    $nombre = utf8_encode($obj_d->nombre);
+    $apellidoPaterno = utf8_encode($obj_d->apellidoPaterno);
+    $apellidoMaterno = utf8_encode($obj_d->apellidoMaterno);
+    
 $sql = "UPDATE `laboratorio`.`identificacionAlumno` ".
 " set ".
-" nombre =  '$obj_d->nombre', ".
-"        apellidoPaterno = '$obj_d->apellidoPaterno', ".
-"        apellidoMaterno = '$obj_d->apellidoMaterno', ".
+" nombre =  '$nombre', ".
+"        apellidoPaterno = '$apellidoPaterno', ".
+"        apellidoMaterno = '$apellidoMaterno', ".
 "        edad = '$obj_d->edad', ".
 "        sexo =  '$obj_d->sexo', ".
 "        id_escuela = '$obj_d->escuela',".

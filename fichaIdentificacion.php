@@ -14,7 +14,7 @@ table {
 ng-controller="ctrlLab" 
 ng-init="listaEscuelaFunction();">
 <h1 class="h1 text-center" >
-Lista de Alumnos 
+Lista de Alumnos
 </h1>
 
 
@@ -119,7 +119,7 @@ data-toggle="modal" data-target="#editarAlumnoM">
 </label>
     </td>
 <td data-toggle="tooltip" data-placement="top" title="Nombre del alumno">
-    {{arrayAlumnos.nombreCompleto}}</td>
+    {{arrayAlumnos.nombre  }} {{arrayAlumnos.apellidoPaterno}} {{arrayAlumnos.apellidoMaterno}}</td>
 <td data-toggle="tooltip" data-placement="top" title="Escuela">{{arrayAlumnos.escuela}}</td>
 <td >
 
@@ -2088,6 +2088,7 @@ method: 'POST'
 })
 .then(function( res,data) {   
 $scope.listaAlumnos = res.data;
+$scope.editarAlumno = {};
 });
 };
 
@@ -2116,7 +2117,7 @@ $scope.listaEscuelas = res.data;
 
 /* mostrar lista de escuelas */
 $scope.buscarAlumno = function(id_escuela,matricula) {
-$scope.editarAlumno = {};
+
 var params = {matricula:matricula,id_escuela:id_escuela};
 
 $http({
@@ -2130,13 +2131,8 @@ data: params
 .then(function(res,data) {  
 
 
+$scope.editarAlumno = res.data[0];  
 
-for(var i =0 in res.data){
-    if(res.data[i].matricula){
-       
-$scope.editarAlumno = res.data[i];    
-    }
-}
 
 
 $scope.mensaje = "ACTUALIZAR ALUMNO";
@@ -2207,7 +2203,6 @@ headers: {'Content-Type': 'application/json'}
 .then(function(res,data) {  
 
 $scope.mensaje = 'ALUMNO ACTUALIZADO!'; // 
-$scope.editarAlumno = "";
 $scope.editarAlumno = res.data[0];
 });
 //ABRE MOSTRAR TRANSACCIONES 

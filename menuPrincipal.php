@@ -54,12 +54,16 @@ window.open(URL, "nueva", "width=1024,height=800,scrollbars=YES,resizable=YES, m
 </script>
     
 
+<?php
+
+ 
+?>
      
             
 <html>
     <head>
-        <title></title>
-        <meta>
+
+        <meta >
             <body>
 
 
