@@ -356,24 +356,24 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 
                 <tr>
                     <td>Colesterol</td>
-                    <td>{{arrH.colesterol}}mg/dl</td>
+                    <td ng-class="arrH.colesterol>=200?'danger':'success'">{{arrH.colesterol}}mg/dl</td>
                     <td><200mg/dl</td>
                 </tr>
     <tr>
                     <td>Trigliceridos</td>
-                    <td>{{arrH.trigliceridos}}mg/dl</td>
+                    <td ng-class="arrH.trigliceridos>=130?'danger':'success'">{{arrH.trigliceridos}}mg/dl</td>
                     <td><=130mg/dl</td>
                 </tr>   
                 
                 <tr>
                     <td>Colesterol HDL</td>
-                    <td>{{arrH.hdl}}mg/dl</td>
+                    <td ng-class="arrH.hdl<35?'danger':'success'">{{arrH.hdl}}mg/dl</td>
                     <td>>35mg/dl</td>
                 </tr>  
                 
                 <tr>
                     <td>Colesterol LDL</td>
-                    <td>{{arrH.ldl}}mg/dl</td>
+                    <td ng-class="arrH.ldl>=130?'danger':'success'">{{arrH.ldl}}mg/dl</td>
                     <td><=130mg/dl</td>
                 </tr> 
                 
@@ -385,7 +385,7 @@ role="dialog" aria-labelledby="historialAlumnoModal">
                 
                 <tr>
                     <td>Glucosa Basal</td>
-                    <td>{{arrH.glucosaBasal }}mg/dl</td>
+                    <td ng-class="arrH.glucosaBasal>=100?'danger':'success'">{{arrH.glucosaBasal }}mg/dl</td>
                     <td><100mg/dl</td>
                 </tr> 
                 
