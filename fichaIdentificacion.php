@@ -979,7 +979,7 @@ Guardar
 
 <button type="button" class="btn btn-primary" 
         ng-show="fichaBio.keyFB"
-ng-click="nuevaFichaBio(fichaBio.matricula);"
+ng-click="nuevaFichaBio(fichaBio.id_escuela , fichaBio.matricula);"
 >Nuevo</button>  
 
 <button type="submit" class="btn btn-default" 
@@ -1778,10 +1778,11 @@ $scope.inicializarHistorial = function(){
 }
 
 
-$scope.nuevaFichaBio = function(matricula){
+$scope.nuevaFichaBio = function(escuela,matricula){
   
   $scope.fichaBio = {};
   $scope.fichaBio.matricula = matricula;
+    $scope.fichaBio.id_escuela = escuela;
 
 };
 
