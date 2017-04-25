@@ -48,35 +48,40 @@ DATE_FORMAT(fecha, '%d/%m/%Y') fecha,
 (select talla from fichaAntropometrica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFA DESC limit 1) 
 talla,
 
 (select peso from fichaAntropometrica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFA DESC limit 1) 
 peso,
 
 (select cMuneca from fichaAntropometrica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFA DESC limit 1) 
 cMuneca,
 
 (select cCadera from fichaAntropometrica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFA DESC limit 1) 
 cCadera,
 
 (select cGC from fichaAntropometrica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFA DESC limit 1) 
 cGC,
 /* TERMINA FICHA ANTROPROMETRICA */
@@ -87,28 +92,32 @@ cGC,
 (select toma1BrazoDerecho from fichaClinica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFC DESC limit 1) 
 toma1BrazoDerecho,
 
 (select toma1BrazoIzquierdo from fichaClinica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFC DESC limit 1) 
 toma1BrazoIzquierdo,
 
 (select toma2BrazoDerecho from fichaClinica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFC DESC limit 1) 
 toma2BrazoDerecho,
 
 (select toma2BrazoIzquierdo from fichaClinica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFC DESC limit 1) 
 toma2BrazoIzquierdo,
 /* TERMINA FICHA ANTROPROMETRICA */
@@ -118,42 +127,48 @@ toma2BrazoIzquierdo,
 (select colesterol from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 colesterol,
 
 (select trigliceridos from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 trigliceridos,
 
 (select hdl from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 hdl,
 
 (select ldl from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 ldl,
 
 (select vdl from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 vdl,
 
 (select ldlvdl  from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 ldlvdl ,
 
@@ -162,14 +177,16 @@ ldlvdl ,
 (select glucosaBasal  from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 glucosaBasal ,
 
 (select insulinaBasal  from fichaBioquimica 
 where
 matricula = fa.matricula 
-
+and
+fecha=fa.fecha
  order by keyFB DESC limit 1) 
 insulinaBasal 
 /* TERMINA FICHA BIOQUIMICA */
