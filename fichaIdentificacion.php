@@ -134,7 +134,7 @@ data-toggle="modal" data-target="#editarAlumnoM">
 <label data-toggle="tooltip"
 data-placement="top" title="Agregar ficha antropométrica">
 <!-- Button trigger modal -->
-<a ng-click="mostrarFichaAntro(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);"
+<a ng-click="mostrarFichaAntro(arrayAlumnos.nombreCompleto,arrayAlumnos.matricula,arrayAlumnos.id_escuela);mostrarGraficaLaboratorio();"
 style="cursor:pointer;"
 
 data-toggle="modal" data-target="#fichaAntroModal">
@@ -1022,7 +1022,7 @@ data-dismiss="modal">Cerrar</button>
 
 <div class="modal fade " id="fichaAntroModal" tabindex="-1" 
 role="dialog" aria-labelledby="fichaAntroModal">
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 
 
@@ -1041,7 +1041,6 @@ role="dialog" aria-labelledby="fichaAntroModal">
 
 
 <div class="modal-body">
-
 
 
 
@@ -1208,6 +1207,11 @@ class="form-control input-md numericos" type="text" required=""
 </fieldset>
 </form>          
 
+    
+    
+    <div id="graficaLaboratorio"
+     style="min-width: 810px; 
+     max-width: 4700px; height: 450px; margin: 0 auto"></div> 
 
 </div>
 
@@ -1262,14 +1266,50 @@ ng-click="listaEscuelaFunction();"
 data-dismiss="modal">Cerrar</button>
 </div>
 </div>
+
+
+ 
+    <!--Aqui va la grafica -->
+   
+
 </div>
 
 
 
-</form>
+    
+   
+    
+    
+    
+    
 </div>
+    
+    
+    
+    
+    
+    
+    
 </div>
 </div><!--cierra ficha antropometrica -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1758,6 +1798,128 @@ $scope.fichaAntroReadonly = true;
 $scope.fichaBio = {};
 
 
+
+
+
+
+
+
+$scope.mostrarGraficaLaboratorio = function(){
+  
+  
+  
+var arreglo = {};  
+var params = {tipoReporte:$scope.tipoReporte};
+$http({
+           url: 'json/historialGlobalPeso.php',
+           method: 'POST',
+           data: params
+       })
+.then(function(res,data) {
+    
+$scope.arreglo = res.data;
+$scope.llenarValores($scope.arrayFichaAntro);
+
+//$scope.mensajeFichaAntro = 'Ficha Antropométrica agregada!'; // 
+});  
+  
+    
+};
+
+
+
+
+
+
+
+
+$scope.llenarValores = function(datas){
+    
+var arrayFecha = [];
+var arrayPeso = [];
+var arrayTalla = [];
+var presionArterial = [];
+
+for (var i in datas){
+    arrayPeso.push([parseFloat(datas[i].peso)]);
+    arrayFecha.push([datas[i].fecha]);
+    arrayTalla.push([parseFloat(datas[i].talla)]);
+    presionArterial.push([parseFloat(datas[i].presionArterial)]);
+}    
+  
+  $scope.arrayPeso = arrayPeso;
+   
+/*dibujar grafica*/    
+Highcharts.chart('graficaLaboratorio', {
+    chart: {
+        type: 'area'
+    },
+    title: {
+        text: 'Historial de Cambios'
+    },
+    subtitle: {
+        text: 'Universidad de Montemorelos'
+    },
+    xAxis: {
+        categories: arrayFecha,
+        tickmarkPlacement: 'on',
+        title: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        title: {
+            text: ' '
+        },
+        labels: {
+            formatter: function () {
+                return this.value / 1000;
+            }
+        }
+    },
+    tooltip: {
+        split: true,
+        valueSuffix: ' '
+    },
+    plotOptions: {
+        area: {
+            stacking: 'normal',
+            lineColor: '#666666',
+            lineWidth: 1,
+            marker: {
+                lineWidth: 1,
+                lineColor: '#666666'
+            }
+        }
+    },
+    series: [{
+        name: 'Peso',
+        data: arrayPeso
+    }, {
+        name: 'Talla',
+        data: arrayTalla
+    }, {
+        name: 'Presion Arterial',
+        data: presionArterial
+    }]
+});
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $scope.inicializarAlumnos = function (){
     $scope.agregarAlumno = {};
 }
@@ -1859,7 +2021,7 @@ data: params
 //headers: {'Content-Type': 'application/json'}
 })
 .then(function(res,data) {  
-
+$scope.arrayFichaAntro = res.data;
 if(res.data.length>0){
 $scope.fichaAntro = res.data[0]; 
 }else{

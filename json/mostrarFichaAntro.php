@@ -45,7 +45,7 @@ if($matricula){
 
 $sql = "SELECT * "
         . ""
-        . " FROM fichaAntropometrica where matricula = '$matricula' order by keyFA DESC ";
+        . " FROM fichaAntropometrica where matricula = '$matricula' order by fecha ASC ";
 
 $result = $conn->query($sql);
 $data = array();
@@ -64,6 +64,7 @@ if ($result->num_rows > 0) {
             'keyFA'                 => $rPx['keyFA'],
             'cGC'                   => $rPx['cGC'],
             'presionArterial'       => $rPx['presionArterial'],
+            'fecha'       => $rPx['fecha']
             
         );
         
